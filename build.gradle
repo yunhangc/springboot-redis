@@ -1,0 +1,47 @@
+group 'afm'
+version '1.0-SNAPSHOT'
+
+
+buildscript {
+    ext {
+        springBootVersion = '1.2.7.RELEASE'
+        springCloudHystrixVersion = '1.0.3.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    all*.exclude module: "log4j-over-slf4j"
+    all*.exclude module: "slf4j-log4j12"
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter'
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile 'org.springframework.boot:spring-boot-configuration-processor'
+    compile("org.springframework.boot:spring-boot-starter-redis")
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile 'org.springframework.data:spring-data-redis'
+    compile 'mysql:mysql-connector-java:5.1.6'
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
